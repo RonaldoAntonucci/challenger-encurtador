@@ -24,4 +24,14 @@ describe('DbLoadUrl', () => {
       shortUrl: request.shortUrl,
     });
   });
+
+  it('deverá retonar um erro caso o LoadUrlByShortRepository retorne um erro', async () => {
+    jest
+      .spyOn(loadUrlByShortRepositorySpy, 'loadUrlByShort')
+      .mockImplementationOnce(async () => {
+        throw new Error();
+      });
+
+    await expect(sut.loadUrl(makeFakeRequest())).rejects.toThrow();
+  });
 });
