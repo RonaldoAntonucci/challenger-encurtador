@@ -36,12 +36,22 @@ describe('DbEncryptUrl - unit', () => {
     await expect(sut.encrypt(makeFakeRequest())).rejects.toThrow();
   });
 
-  it('deverá chamar o  addShortUrlRepository com os valores corretos', async () => {
+  it('deverá chamar o addShortUrlRepository com os valores corretos', async () => {
     const request = makeFakeRequest();
     await sut.encrypt(request);
     expect(addShortUrlRepositorySpy.params).toEqual({
       url: request.url,
       shortUrl: generateShortUrlSpy.result,
     });
+  });
+
+  it('deverá retonar um erro caso o addShortUrlRepository retorne um erro', async () => {
+    jest
+      .spyOn(addShortUrlRepositorySpy, 'addShortUrl')
+      .mockImplementationOnce(async () => {
+        throw new Error();
+      });
+
+    await expect(sut.encrypt(makeFakeRequest())).rejects.toThrow();
   });
 });
