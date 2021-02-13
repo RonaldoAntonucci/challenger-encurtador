@@ -27,6 +27,7 @@
       "no-unused-vars": "off",
       "no-redeclare":"off",
       "import/export": "off",
+      "class-methods-use-this": "off",
       "import/extensions": [
         "error",
         "ignorePackages",
@@ -41,4 +42,3 @@
       }
     }
   }
-  

@@ -1,4 +1,3 @@
-/* eslint-disable class-methods-use-this */
 import { GenerateShortUrl } from '@/data/protocols';
 import crypto from 'crypto';
 
