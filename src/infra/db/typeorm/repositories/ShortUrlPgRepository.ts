@@ -1,9 +1,13 @@
-import { AddShortUrlRepository } from '@/data/protocols';
+import {
+  AddShortUrlRepository,
+  LoadUrlByShortRepository,
+} from '@/data/protocols';
 import { getConnection } from 'typeorm';
 import { ShortUrl } from '../entities/ShortUrl';
 import { Url } from '../entities/Url';
 
-export class ShortUrlPgRepository implements AddShortUrlRepository {
+export class ShortUrlPgRepository
+  implements AddShortUrlRepository, LoadUrlByShortRepository {
   async addShortUrl({
     url: urlData,
     shortUrl: shortUrlData,
@@ -25,5 +29,22 @@ export class ShortUrlPgRepository implements AddShortUrlRepository {
 
       return shortUrl.shortUrl;
     });
+  }
+
+  async loadUrlByShort({
+    shortUrl,
+  }: LoadUrlByShortRepository.Params): Promise<LoadUrlByShortRepository.Result> {
+    const conn = getConnection();
+    const shortUrlRepo = conn.getRepository(ShortUrl);
+
+    const short = await shortUrlRepo.findOne(
+      { shortUrl },
+      { relations: ['url'] },
+    );
+    if (!short) {
+      return undefined;
+    }
+
+    return short.url.url;
   }
 }
