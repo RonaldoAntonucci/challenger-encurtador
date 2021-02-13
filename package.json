@@ -10,7 +10,8 @@
     "test:integration": "npm test -- --watch -c jest-integration-config.js",
     "test:staged": "npm test -- --findRelatedTests",
     "test:ci": "npm test -- --coverage",
-    "test:coveralls": "npm run test:ci && coveralls < coverage/lcov.info"
+    "test:coveralls": "npm run test:ci && coveralls < coverage/lcov.info",
+    "typeorm": "ts-node-dev -r tsconfig-paths/register ./node_modules/typeorm/cli.js"
   },
   "devDependencies": {
     "@types/faker": "^5.1.6",
@@ -36,6 +37,7 @@
     "crypto": "^1.0.1",
     "pg": "^8.5.1",
     "reflect-metadata": "^0.1.13",
+    "ts-node-dev": "^1.1.1",
     "typeorm": "^0.2.31"
   }
 }
