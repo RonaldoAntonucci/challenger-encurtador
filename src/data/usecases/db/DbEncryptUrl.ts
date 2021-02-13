@@ -1,14 +1,14 @@
-import { EncrypterUrl } from '@/data/protocols';
+import { GenerateShortUrl } from '@/data/protocols';
 import { EncryptUrl } from '@/domain/usecases';
 
 export class DbEncryptUrl implements EncryptUrl {
-  constructor(private readonly encrypterUrl: EncrypterUrl) {}
+  constructor(private readonly generateShortUrl: GenerateShortUrl) {}
 
   async encrypt({ url }: EncryptUrl.Params): Promise<EncryptUrl.Result> {
-    await this.encrypterUrl.encrypt({ url });
+    await this.generateShortUrl.generate({ url });
 
     const result = {};
 
-    return result as EncrypterUrl.Result;
+    return result as GenerateShortUrl.Result;
   }
 }

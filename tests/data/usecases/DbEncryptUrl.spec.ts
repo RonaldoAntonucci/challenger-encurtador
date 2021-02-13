@@ -1,5 +1,5 @@
 import { DbEncryptUrl } from '@/data/usecases';
-import { EncrypterUrlSpy } from '@/tests/util/spys/EncrypterUrlSpy';
+import { EncryptUrlSpy, GenerateShortUrlSpy } from '@/tests/util';
 import { EncryptUrl } from '@/domain/usecases';
 
 import faker from 'faker';
@@ -10,23 +10,25 @@ const makeFakeRequest = (): EncryptUrl.Params => ({
 
 describe('DbEncryptUrl - unit', () => {
   let sut: DbEncryptUrl;
-  let encrypterUrlSpy: EncrypterUrlSpy;
+  let generateShortUrlSpy: GenerateShortUrlSpy;
 
   beforeEach(() => {
-    encrypterUrlSpy = new EncrypterUrlSpy();
-    sut = new DbEncryptUrl(encrypterUrlSpy);
+    generateShortUrlSpy = new GenerateShortUrlSpy();
+    sut = new DbEncryptUrl(generateShortUrlSpy);
   });
 
   it('deverá chamar o EncrypterUrl com a url correta', async () => {
     const request = makeFakeRequest();
     await sut.encrypt(request);
-    expect(encrypterUrlSpy.params).toEqual({ url: request.url });
+    expect(generateShortUrlSpy.params).toEqual({ url: request.url });
   });
 
   it('deverá retonar um erro caso o EncrypterUrl retorne um erro', async () => {
-    jest.spyOn(encrypterUrlSpy, 'encrypt').mockImplementationOnce(async () => {
-      throw new Error();
-    });
+    jest
+      .spyOn(generateShortUrlSpy, 'generate')
+      .mockImplementationOnce(async () => {
+        throw new Error();
+      });
 
     await expect(sut.encrypt(makeFakeRequest())).rejects.toThrow();
   });
