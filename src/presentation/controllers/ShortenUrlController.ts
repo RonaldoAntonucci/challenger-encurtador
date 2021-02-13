@@ -1,5 +1,5 @@
 import { EncryptUrl } from '@/domain/usecases';
-import { success } from '../helper';
+import { success, newUrlMap } from '../helper';
 import { Controller, HttpResponse } from '../protocols';
 
 export class ShortenUrlController
@@ -11,7 +11,9 @@ export class ShortenUrlController
   ): Promise<HttpResponse<ShortenUrlController.Response>> {
     const newUrl = await this.encryptUrl.encrypt(request);
 
-    return success<ShortenUrlController.Response>({ newUrl });
+    return success<ShortenUrlController.Response>({
+      newUrl: newUrlMap(newUrl),
+    });
   }
 }
 
