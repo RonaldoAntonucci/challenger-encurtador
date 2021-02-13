@@ -1,5 +1,5 @@
 import { DbEncryptUrl } from '@/data/usecases';
-import { EncryptUrlSpy, GenerateShortUrlSpy } from '@/tests/util';
+import { GenerateShortUrlSpy } from '@/tests/util';
 import { EncryptUrl } from '@/domain/usecases';
 
 import faker from 'faker';
@@ -53,5 +53,10 @@ describe('DbEncryptUrl - unit', () => {
       });
 
     await expect(sut.encrypt(makeFakeRequest())).rejects.toThrow();
+  });
+
+  it('deverá retornar uma newUrl caso tenha successo', async () => {
+    const response = await sut.encrypt(makeFakeRequest());
+    expect(response).toEqual(addShortUrlRepositorySpy.result);
   });
 });
