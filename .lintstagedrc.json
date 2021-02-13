@@ -3,6 +3,7 @@
     "eslint src/** --fix",
     "eslint tests/** --fix",
     "prettier src/** --write",
-    "prettier tests/** --write"
+    "prettier tests/** --write",
+    "yarn test:staged"
   ]
 }
