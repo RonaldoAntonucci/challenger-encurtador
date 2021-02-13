@@ -33,6 +33,9 @@
     "typescript": "^4.1.5"
   },
   "dependencies": {
-    "crypto": "^1.0.1"
+    "crypto": "^1.0.1",
+    "pg": "^8.5.1",
+    "reflect-metadata": "^0.1.13",
+    "typeorm": "^0.2.31"
   }
 }
