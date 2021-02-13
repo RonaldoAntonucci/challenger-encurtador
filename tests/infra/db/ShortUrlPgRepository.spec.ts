@@ -1,4 +1,7 @@
-import { AddShortUrlRepository } from '@/data/protocols';
+import {
+  AddShortUrlRepository,
+  LoadUrlByShortRepository,
+} from '@/data/protocols';
 import { ShortUrlPgRepository } from '@/infra/db/typeorm/repositories';
 
 import faker from 'faker';
@@ -66,6 +69,34 @@ describe('ShortUrlPgRepository', () => {
       const request = makeFakeRequest();
       const response = await sut.addShortUrl(request);
       expect(response).toEqual(request.shortUrl);
+    });
+  });
+
+  describe('LoadUrlByShortRepository', () => {
+    const makeFakeRequest = (): LoadUrlByShortRepository.Params => ({
+      shortUrl: faker.random.uuid(),
+    });
+
+    beforeEach(async () => {
+      await conn.getRepository(ShortUrl).delete({});
+      await conn.getRepository(Url).delete({});
+    });
+
+    it('deverá returna uma url em caso de successo', async () => {
+      const url = faker.internet.url();
+      const request = makeFakeRequest();
+      const urlRepo = conn.getRepository(Url);
+      const shortUrlRepo = conn.getRepository(ShortUrl);
+      const savedUrl = urlRepo.create({ url });
+      await urlRepo.save(savedUrl);
+      const shortUrl = shortUrlRepo.create({
+        shortUrl: request.shortUrl,
+        urlId: savedUrl.id,
+      });
+      await shortUrlRepo.save(shortUrl);
+
+      const response = await sut.loadUrlByShort(request);
+      expect(response).toEqual(url);
     });
   });
 });
