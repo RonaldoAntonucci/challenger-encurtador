@@ -28,7 +28,7 @@ describe('DbEncryptUrl - unit', () => {
 
   it('deverá retonar um erro caso o EncrypterUrl retorne um erro', async () => {
     jest
-      .spyOn(generateShortUrlSpy, 'generate')
+      .spyOn(generateShortUrlSpy, 'generateUrl')
       .mockImplementationOnce(async () => {
         throw new Error();
       });

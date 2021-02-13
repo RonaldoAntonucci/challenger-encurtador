@@ -7,7 +7,7 @@ export class GenerateShortUrlSpy implements GenerateShortUrl {
 
   result = faker.random.uuid();
 
-  async generate(
+  async generateUrl(
     params: GenerateShortUrl.Params,
   ): Promise<GenerateShortUrl.Result> {
     this.params = params;

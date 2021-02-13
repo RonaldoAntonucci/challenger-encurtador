@@ -9,7 +9,7 @@ export class DbEncryptUrl implements EncryptUrl {
   ) {}
 
   async encrypt({ url }: EncryptUrl.Params): Promise<EncryptUrl.Result> {
-    const shortUrl = await this.generateShortUrl.generate({ url });
+    const shortUrl = await this.generateShortUrl.generateUrl({ url });
 
     const newUrl = await this.addShortUrlRepository.addShortUrl({
       url,
