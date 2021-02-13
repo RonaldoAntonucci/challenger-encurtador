@@ -6,5 +6,9 @@ export class DbEncryptUrl implements EncryptUrl {
 
   async encrypt({ url }: EncryptUrl.Params): Promise<EncryptUrl.Result> {
     await this.encrypterUrl.encrypt({ url });
+
+    const result = {};
+
+    return result as EncrypterUrl.Result;
   }
 }
