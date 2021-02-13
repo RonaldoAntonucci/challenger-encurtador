@@ -98,5 +98,10 @@ describe('ShortUrlPgRepository', () => {
       const response = await sut.loadUrlByShort(request);
       expect(response).toEqual(url);
     });
+
+    it('deverá retornar null caso a shortUrl não exista', async () => {
+      const response = await sut.loadUrlByShort(makeFakeRequest());
+      expect(response).toBeUndefined();
+    });
   });
 });
