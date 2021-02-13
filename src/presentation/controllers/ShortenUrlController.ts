@@ -6,7 +6,7 @@ export class ShortenUrlController
   constructor(private readonly encryptUrl: EncryptUrl) {}
 
   async handle(request: ShortenUrlController.Request): Promise<HttpResponse> {
-    this.encryptUrl.encrypt(request);
+    await this.encryptUrl.encrypt(request);
 
     const result = {};
 
