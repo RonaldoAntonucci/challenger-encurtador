@@ -11,10 +11,11 @@ export class DbEncryptUrl implements EncryptUrl {
   async encrypt({ url }: EncryptUrl.Params): Promise<EncryptUrl.Result> {
     const shortUrl = await this.generateShortUrl.generate({ url });
 
-    await this.addShortUrlRepository.addShortUrl({ url, shortUrl });
+    const newUrl = await this.addShortUrlRepository.addShortUrl({
+      url,
+      shortUrl,
+    });
 
-    const result = {};
-
-    return result as GenerateShortUrl.Result;
+    return newUrl;
   }
 }
