@@ -1,6 +1,6 @@
 export interface GenerateShortUrl {
   generateUrl(
-    params: GenerateShortUrl.Params,
+    params?: GenerateShortUrl.Params,
   ): Promise<GenerateShortUrl.Result>;
 }
 
