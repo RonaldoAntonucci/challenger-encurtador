@@ -1,7 +1,7 @@
 import faker from 'faker';
 import { ShowUrlController } from '@/presentation/controllers';
 import { LoadUrlSpy } from '@/tests/util/spys/LoadUrlSpy';
-import { notFound } from '@/presentation/helper';
+import { notFound, redirect } from '@/presentation/helper';
 
 const makeFakeRequest = (): ShowUrlController.Request => ({
   shortUrl: faker.random.uuid(),
@@ -37,6 +37,6 @@ describe('ShowUrlController', () => {
 
   it('deverá retornar a url caso o loadUrl tenha successo', async () => {
     const response = await sut.handle(makeFakeRequest());
-    expect(response).toEqual(loadUrlSpy.result);
+    expect(response).toEqual(redirect(loadUrlSpy.result));
   });
 });

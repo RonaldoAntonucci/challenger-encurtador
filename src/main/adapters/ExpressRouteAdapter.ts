@@ -11,6 +11,17 @@ export const adaptRoute = (controller: Controller) => async (
     ...(req.params || {}),
   };
   const httpResponse = await controller.handle(request);
+
+  if (httpResponse.statusCode === 404) {
+    res.status(404).send();
+  }
+
+  if (httpResponse.statusCode === 302) {
+    if (httpResponse.redirect) {
+      res.redirect(httpResponse.redirect);
+    }
+  }
+
   if (httpResponse.statusCode >= 200 && httpResponse.statusCode <= 299) {
     res.status(httpResponse.statusCode).json(httpResponse.body);
   } else {
