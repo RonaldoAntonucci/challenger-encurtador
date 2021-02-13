@@ -4,3 +4,5 @@ coverage
 .vscode
 globalConfig.json
 yarn-error.log
+database.json
+database.prod.json
