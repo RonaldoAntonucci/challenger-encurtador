@@ -1,11 +1,17 @@
 import { GenerateShortUrl } from '@/data/protocols';
+import { AddShortUrlRepository } from '@/data/protocols/db/url/AddShortUrlRepository';
 import { EncryptUrl } from '@/domain/usecases';
 
 export class DbEncryptUrl implements EncryptUrl {
-  constructor(private readonly generateShortUrl: GenerateShortUrl) {}
+  constructor(
+    private readonly generateShortUrl: GenerateShortUrl,
+    private readonly addShortUrlRepository: AddShortUrlRepository,
+  ) {}
 
   async encrypt({ url }: EncryptUrl.Params): Promise<EncryptUrl.Result> {
-    await this.generateShortUrl.generate({ url });
+    const shortUrl = await this.generateShortUrl.generate({ url });
+
+    await this.addShortUrlRepository.addShortUrl({ url, shortUrl });
 
     const result = {};
 
