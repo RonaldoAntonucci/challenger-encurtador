@@ -1,0 +1,6 @@
+build
+node_modules
+ormconfig.js
+dist
+jest.config.ts
+*.js
