@@ -21,12 +21,6 @@ describe('ShortenUrlController - unit', () => {
     expect(encryptUrlSpy.params).toEqual({ url: request.url });
   });
 
-  it('deverá chamar o EncryptUrl com os valores corretos', async () => {
-    const request = makeFakeRequest();
-    await sut.handle(request);
-    expect(encryptUrlSpy.params).toEqual({ url: request.url });
-  });
-
   it('deverá disparar um erro caso o EncryptUrl dispare um erro', async () => {
     jest.spyOn(encryptUrlSpy, 'encrypt').mockImplementationOnce(async () => {
       throw new Error();
@@ -36,6 +30,8 @@ describe('ShortenUrlController - unit', () => {
 
   it('deverá retornar uma nova url caso o EncryptUrl tenha successo', async () => {
     const response = await sut.handle(makeFakeRequest());
-    expect(response.body.newUrl).toEqual(encryptUrlSpy.result);
+    expect(response.body.newUrl).toEqual(
+      `${process.env.HOST}/${encryptUrlSpy.result}`,
+    );
   });
 });
