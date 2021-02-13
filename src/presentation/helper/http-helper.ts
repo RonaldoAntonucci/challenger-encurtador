@@ -1,4 +1,5 @@
 import { HttpResponse } from '@/presentation/protocols';
+import { ServerError } from '../errors/ServerError';
 
 export const success = <T = any>(data: T): HttpResponse<T> => ({
   statusCode: 200,
@@ -12,4 +13,9 @@ export const redirect = (url: string): HttpResponse => ({
 
 export const notFound = (): HttpResponse => ({
   statusCode: 404,
+});
+
+export const serverError = (error: Error): HttpResponse => ({
+  statusCode: 500,
+  body: new ServerError(error.stack),
 });
