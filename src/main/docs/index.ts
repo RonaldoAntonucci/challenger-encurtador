@@ -1,6 +1,6 @@
-import { encurtadorPath } from './paths';
+import { encurtadorPath, redirecionadorPath } from './paths';
 import { encurtadorParamsSchema, errorSchema, newUrlSchema } from './schemas';
-import { badRequest, serverError } from './components';
+import { badRequest, serverError, notFound } from './components';
 
 export default {
   openapi: '3.0.3',
@@ -18,9 +18,13 @@ export default {
     {
       name: 'Encurtar',
     },
+    {
+      name: 'Redirecionador',
+    },
   ],
   paths: {
     '/encurtador': encurtadorPath,
+    '/{shortUrl}': redirecionadorPath,
   },
   schemas: {
     newUrl: newUrlSchema,
@@ -30,5 +34,6 @@ export default {
   components: {
     badRequest,
     serverError,
+    notFound,
   },
 };
