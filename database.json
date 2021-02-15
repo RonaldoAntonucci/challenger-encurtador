@@ -2,19 +2,20 @@
   {
     "name": "default",
     "type": "postgres",
-    "host": "postgres",
+    "host": "localhost",
     "port": 5432,
     "username": "postgres",
     "password": "docker",
     "database": "encurtador",
     "entities": [
-      "./dist/infra/db/typeorm/entities/*.js"
+      "./src/infra/db/typeorm/entities/*.ts"
     ],
     "migrations": [
-      "./dist/infra/db/typeorm/migrations/*.js"
+      "./src/infra/db/typeorm/migrations/*.ts"
     ],
     "cli": {
-      "migrationsDir": "./dist/infra/db/typeorm/migrations"
-    }
+      "migrationsDir": "./src/infra/db/typeorm/migrations"
+    },
+    "synchronize": true
   }
 ]
