@@ -5,7 +5,20 @@ import faker from 'faker';
 export class LoadUrlByShortRepositorySpy implements LoadUrlByShortRepository {
   params: LoadUrlByShortRepository.Params | null = null;
 
-  result = faker.internet.url();
+  result: LoadUrlByShortRepository.Result = {
+    id: faker.random.uuid(),
+    createdAt: new Date(),
+    updatedAt: new Date(),
+    shortUrl: faker.random.uuid(),
+    urlId: faker.random.uuid(),
+
+    url: {
+      id: faker.random.uuid(),
+      createdAt: new Date(),
+      updatedAt: new Date(),
+      url: faker.internet.url(),
+    },
+  };
 
   async loadUrlByShort(
     params: LoadUrlByShortRepository.Params,

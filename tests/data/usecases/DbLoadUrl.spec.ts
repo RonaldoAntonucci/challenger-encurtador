@@ -12,9 +12,11 @@ describe('DbLoadUrl', () => {
   let sut: DbLoadUrl;
   let loadUrlByShortRepositorySpy: LoadUrlByShortRepositorySpy;
 
+  const expireTime: number = 1000 * 60 * 60 * 24 * 7;
+
   beforeEach(() => {
     loadUrlByShortRepositorySpy = new LoadUrlByShortRepositorySpy();
-    sut = new DbLoadUrl(loadUrlByShortRepositorySpy);
+    sut = new DbLoadUrl(loadUrlByShortRepositorySpy, expireTime);
   });
 
   it('deverá chamar o LoadUrlByShortRepository com os valores corretos', async () => {
@@ -25,6 +27,22 @@ describe('DbLoadUrl', () => {
     });
   });
 
+  it('deverá retornar null caso a url encontrada tenha expirado', async () => {
+    const pastOverExpireTimeDate = new Date();
+    pastOverExpireTimeDate.setTime(
+      pastOverExpireTimeDate.getTime() - expireTime - 1,
+    );
+
+    jest
+      .spyOn(loadUrlByShortRepositorySpy, 'loadUrlByShort')
+      .mockResolvedValueOnce({
+        ...loadUrlByShortRepositorySpy.result,
+        createdAt: pastOverExpireTimeDate,
+      });
+    const response = await sut.loadUrl(makeFakeRequest());
+    expect(response).toBeUndefined();
+  });
+
   it('deverá retonar um erro caso o LoadUrlByShortRepository retorne um erro', async () => {
     jest
       .spyOn(loadUrlByShortRepositorySpy, 'loadUrlByShort')
@@ -33,5 +51,10 @@ describe('DbLoadUrl', () => {
       });
 
     await expect(sut.loadUrl(makeFakeRequest())).rejects.toThrow();
+  });
+
+  it('deverá retornar uma url caso tenha sucesso', async () => {
+    const response = await sut.loadUrl(makeFakeRequest());
+    expect(response).toEqual(loadUrlByShortRepositorySpy.result.url.url);
   });
 });

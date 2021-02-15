@@ -45,6 +45,6 @@ export class ShortUrlPgRepository
       return undefined;
     }
 
-    return short.url.url;
+    return short;
   }
 }

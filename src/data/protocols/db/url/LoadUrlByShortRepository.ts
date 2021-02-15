@@ -1,3 +1,5 @@
+import { ShortUrl } from '@/infra/db/typeorm';
+
 export interface LoadUrlByShortRepository {
   loadUrlByShort(
     params: LoadUrlByShortRepository.Params,
@@ -9,5 +11,5 @@ export namespace LoadUrlByShortRepository {
     shortUrl: string;
   };
 
-  export type Result = string | undefined;
+  export type Result = ShortUrl | undefined;
 }

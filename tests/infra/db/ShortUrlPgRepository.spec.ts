@@ -92,11 +92,12 @@ describe('ShortUrlPgRepository', () => {
       const shortUrl = shortUrlRepo.create({
         shortUrl: request.shortUrl,
         urlId: savedUrl.id,
+        url: savedUrl,
       });
       await shortUrlRepo.save(shortUrl);
 
       const response = await sut.loadUrlByShort(request);
-      expect(response).toEqual(url);
+      expect(response).toEqual(shortUrl);
     });
 
     it('deverá retornar null caso a shortUrl não exista', async () => {
