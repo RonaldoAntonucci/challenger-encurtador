@@ -16,8 +16,9 @@ services:
     build: .
     image: encurtador
     restart: always
-    command: yarn typeorm:migrate
-    command: yarn start
+    command:
+        bash -c "yarn typeorm:migrate
+        && yarn start"
     ports:
       - "3333:3333"
     env_file:
