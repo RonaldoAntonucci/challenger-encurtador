@@ -5,7 +5,8 @@
   "author": "Ronaldo Antonucci <ronaldo.antonuccivrb32@yahoo.com.br>",
   "license": "MIT",
   "scripts": {
-    "start": "docker-compose up",
+    "up": "docker-compose up",
+    "start" : "node dist/main/server.js",
     "build": "rimraf dist && tsc --project tsconfig.build.json && tscpaths -p tsconfig.build.json -s ./src -o ./dist",
     "dev:server": "ts-node-dev -r tsconfig-paths/register --inspect --transpile-only --ignore-watch node_modules --no-notify src/main/server.ts",
     "test": "jest --passWithNoTests --runInBand --no-cache",
