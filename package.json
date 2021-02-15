@@ -6,7 +6,7 @@
   "license": "MIT",
   "scripts": {
     "up": "docker-compose up",
-    "start" : "node dist/main/server.js",
+    "start": "node dist/main/server.js",
     "build": "rimraf dist && tsc --project tsconfig.build.json && tscpaths -p tsconfig.build.json -s ./src -o ./dist",
     "dev:server": "ts-node-dev -r tsconfig-paths/register --inspect --transpile-only --ignore-watch node_modules --no-notify src/main/server.ts",
     "test": "jest --passWithNoTests --runInBand --no-cache",
@@ -14,9 +14,8 @@
     "test:integration": "npm test -- --watch -c jest-integration-config.js",
     "test:staged": "npm test -- --findRelatedTests",
     "test:ci": "npm test -- --coverage",
-    "test:coveralls": "npm run test:ci && coveralls < coverage/lcov.info",
     "typeorm": "ts-node-dev -r tsconfig-paths/register ./node_modules/typeorm/cli.js",
-    "typeorm:migrate" : "./node_modules/typeorm/cli.js migration:run"
+    "typeorm:migrate": "./node_modules/typeorm/cli.js migration:run"
   },
   "devDependencies": {
     "@types/express": "^4.17.11",
