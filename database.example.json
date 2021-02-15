@@ -1,0 +1,20 @@
+[
+  {
+    "name": "default",
+    "type": "postgres",
+    "host": "postgres",
+    "port": 5433,
+    "username": "postgres",
+    "password": "docker",
+    "database": "encurtador",
+    "entities": [
+      "./dist/infra/db/typeorm/entities/*.js"
+    ],
+    "migrations": [
+      "./dist/infra/db/typeorm/migrations/*.js"
+    ],
+    "cli": {
+      "migrationsDir": "./dist/infra/db/typeorm/migrations"
+    }
+  }
+]
