@@ -13,6 +13,8 @@ Ao realizar uma requisição do tipo **GET** passando a shortUrl como parametro 
 
 Desenvolvido seguindo a **Clean Architecture** e **SOLID**
 
+[**para acessar em produçao**](https://encurtador-api.ronaldoantonucci.com.br/docs)
+
 # Use Cases
 
 1. [Encurtar](./requirements/encurtar.md)
